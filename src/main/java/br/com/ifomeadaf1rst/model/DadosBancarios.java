@@ -4,6 +4,8 @@ import java.util.UUID;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -18,6 +20,7 @@ import lombok.Setter;
 public class DadosBancarios {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 	private String numeroConta;
 	private Integer digitoConta;
