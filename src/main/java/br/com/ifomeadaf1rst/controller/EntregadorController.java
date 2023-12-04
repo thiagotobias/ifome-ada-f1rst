@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,7 +28,7 @@ public class EntregadorController {
 	private EntregadorService service;
 	
 	@PostMapping
-	public ResponseEntity<EntregadorDTO> create(EntregadorDTO entregador){
+	public ResponseEntity<EntregadorDTO> create(@RequestBody @Valid EntregadorDTO entregador){
 		
 		EntregadorDTO cEntregador = service.create(entregador);
 		
