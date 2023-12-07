@@ -1,5 +1,7 @@
 package br.com.ifomeadaf1rst.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -23,7 +25,10 @@ public class Documento {
 	private String estado;
 	private Long numero;
 	private Character categoria;
-	private Date dataVencimento;
-	private Date dataEmissao;
-	
+	private LocalDate dataVencimento;
+	private LocalDate dataEmissao;
+
+	public boolean isValid(){
+		return LocalDate.now().isBefore(dataVencimento);
+	}
 }
