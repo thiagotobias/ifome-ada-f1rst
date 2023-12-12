@@ -20,13 +20,13 @@ public class Documento {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
-	private String estado;
-	private Long numero;
-	private Character categoria;
-	private LocalDate dataVencimento;
-	private LocalDate dataEmissao;
+	private String ufCNH;
+	private Long numeroCNH;
+	private Character categoriaCNH;
+	private LocalDate dataVencimentoCNH;
+	private LocalDate dataEmissaoCNH;
 
 	public boolean isValid(){
-		return LocalDate.now().isBefore(dataVencimento);
+		return LocalDate.now().isBefore(dataVencimentoCNH);
 	}
 }

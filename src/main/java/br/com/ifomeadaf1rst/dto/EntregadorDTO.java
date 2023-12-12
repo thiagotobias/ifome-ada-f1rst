@@ -25,8 +25,12 @@ public class EntregadorDTO {
 	
 	@NotBlank(message = "CPF é obrigatório")
 	@CPF
-	
 	private String cpf;
+	
+	@NotBlank(message = "CPF é obrigatório")
+	@Size(min = 7, max = 7, message = "Tamanho do RG inválido!")
+	private String rg;
+	
 	@NotBlank(message = "E-mail é obrigatório")
 	@Email
 	private String email;
@@ -53,21 +57,21 @@ public class EntregadorDTO {
 	private String chave;
 	
 	@NotBlank(message = "UF da Habilitação é obrigatório")
-	private String ufDocumento;
+	private String ufCNH;
 	
 	@NotNull(message = "Número da Habilitação é obrigatório")
     @Digits(integer = 11, fraction = 0, message = "Número da Habilitação deve conter 11 dígitos")
-	private Long numeroDocumento;
+	private Long numeroCNH;
 	
 	@NotBlank(message = "Categoria da Habilitação é obrigatório")
 	@Size(min = 1, max = 1, message = "Tipo da Habilitação deve conter 1 caracteres")
-	private String categoriaDocumento;
+	private String categoriaCNH;
 	
 	@NotNull(message = "Data de Vencimento da Habilitação é obrigatório")
-	private Date dataVencimentoDocumento;
+	private Date dataVencimentoCNH;
 	
 	@NotNull(message = "Data de Emissão da Habilitação é obrigatório")
-	private Date dataEmisssaoDocumento;
+	private Date dataEmisssaoCNH;
 	private String tamanhoCamisa;
 	
 	@NotNull(message = "Tipo de Veículo é obrigatório")

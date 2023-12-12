@@ -18,4 +18,13 @@ public enum TipoVeiculoEnum {
     public String getTipoVeiculoEnum() {
         return tipoVeiculoEnum;
     }
+    
+    public static TipoVeiculoEnum fromString(String tipo) {
+        for (TipoVeiculoEnum tipoVeiculoEnum : TipoVeiculoEnum.values()) {
+            if (tipoVeiculoEnum.tipoVeiculoEnum.equalsIgnoreCase(tipo)) {
+                return tipoVeiculoEnum;
+            }
+        }
+        throw new IllegalArgumentException("Tipo de veículo não encontrado para: " + tipo);
+    }
 }
