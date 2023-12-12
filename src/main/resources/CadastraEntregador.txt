@@ -1,0 +1,33 @@
+curl --request POST \
+  --url http://localhost:8080/entregador \
+  --header 'Content-Type: application/json' \
+  --header 'User-Agent: Insomnia/2023.5.5' \
+  --data '{
+	"nome":"Maria Joaquina",
+	"cpf":"07261625078",
+	"rg":"3530374",
+	"email":"emaildeteste@gmail.com",
+	"banco":"0033",
+	"agencia":"00001",
+	"conta":"00000001",
+	"digitoConta":"0",
+	"tipoConta":"CORRENTE",
+	"tipoChave":"EMAIL",
+	"chave":"emaildeteste@gmail.com",
+	"ufCNH":"SP",
+	"numeroCNH":"71662410467",
+	"categoriaCNH":"B",
+	"dataVencimentoCNH":"2023-12-30",
+	"dataEmisssaoCNH":"2023-01-01",
+	"tamanhoCamisa":"",
+	"tipoVeiculoEnum":"CARRO",
+	"marcaVeiculo":"",
+	"placaVeiculo":"ABC1A44",
+	"corVeiculo":"",
+	"renavam":"11457286143",
+	"anoVeiculo":"2010",
+	"logradouro":"Rua nome da rua",
+	"numeroEndereco":"342",
+	"complementoEndereco":"",
+	"cep":"08822310"
+}'

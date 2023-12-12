@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 import jakarta.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +27,7 @@ import br.com.ifomeadaf1rst.service.EntregadorService;
 @RequestMapping("/entregador")
 public class EntregadorController {
 	
+	@Autowired
 	private EntregadorService service;
 	
 	@PostMapping

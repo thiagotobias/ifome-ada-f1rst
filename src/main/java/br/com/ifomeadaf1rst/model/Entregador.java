@@ -26,6 +26,8 @@ public class Entregador {
 	private String nome;
 	@Column(unique = true, nullable = false)
 	private String cpf;
+	@Column(unique = true, nullable = false)
+	private String rg;
 	private String email;
 	private String tamanhoCamisa;
 	@OneToOne(cascade = CascadeType.ALL)
