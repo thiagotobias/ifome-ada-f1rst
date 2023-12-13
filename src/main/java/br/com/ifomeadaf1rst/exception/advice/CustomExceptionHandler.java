@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.com.ifomeadaf1rst.exception.EntidadeNaoEncontradaException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -16,7 +17,6 @@ import br.com.ifomeadaf1rst.dto.exception.ApiSubErrorDTO;
 import br.com.ifomeadaf1rst.dto.exception.ApiValidationErrorDTO;
 import br.com.ifomeadaf1rst.dto.exception.ApiValidationErrorListDTO;
 import br.com.ifomeadaf1rst.exception.BusinessException;
-import br.com.ifomeadaf1rst.exception.EntregadorNotFoundException;
 import jakarta.validation.UnexpectedTypeException;
 
 @ControllerAdvice
@@ -32,7 +32,7 @@ public class CustomExceptionHandler {
 	    return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
 	}
 
-	@ExceptionHandler(value = EntregadorNotFoundException.class)
+	@ExceptionHandler(value = EntidadeNaoEncontradaException.class)
 	public ResponseEntity<String> captureRestauranteNotFoundException() {
 		return ResponseEntity.notFound().build();
 	}

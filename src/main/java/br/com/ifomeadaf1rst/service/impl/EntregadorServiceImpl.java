@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import br.com.ifomeadaf1rst.dto.EntregadorDTO;
 import br.com.ifomeadaf1rst.enums.TipoVeiculoEnum;
 import br.com.ifomeadaf1rst.exception.BusinessException;
@@ -18,15 +15,23 @@ import br.com.ifomeadaf1rst.model.Documento;
 import br.com.ifomeadaf1rst.model.Endereco;
 import br.com.ifomeadaf1rst.model.Entregador;
 import br.com.ifomeadaf1rst.model.Veiculo;
+import br.com.ifomeadaf1rst.dto.mapper.EntregadorMapper;
+import br.com.ifomeadaf1rst.exception.EntidadeNaoEncontradaException;
 import br.com.ifomeadaf1rst.repository.EntregadorRepository;
 import br.com.ifomeadaf1rst.service.EntregadorService;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EntregadorServiceImpl implements EntregadorService {
-	
-	@Autowired
-	private EntregadorRepository repEntregador;
-	
+
+	private final EntregadorRepository entregadorRepository;
+	private final EntregadorMapper entregadorMapper;
+
+	public EntregadorServiceImpl(EntregadorRepository entregadorRepository, EntregadorMapper entregadorMapper) {
+		this.entregadorRepository = entregadorRepository;
+		this.entregadorMapper = entregadorMapper;
+	}
+
 	@Override
 	public EntregadorDTO create(EntregadorDTO entregador) {
 
@@ -34,7 +39,7 @@ public class EntregadorServiceImpl implements EntregadorService {
 		validaVeiculo(entregador);
 		validarContaBancaria(entregador);
 		
-		Entregador entregadorRep = repEntregador.save( montaEntregador(entregador));
+		Entregador entregadorRep = entregadorRepository.save(montaEntregador(entregador));
 		entregador.setId(entregadorRep.getId());
 		
 		return entregador;
@@ -211,8 +216,12 @@ public class EntregadorServiceImpl implements EntregadorService {
 
 	@Override
 	public EntregadorDTO readById(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		Entregador entregador = entregadorRepository
+				.findById(id)
+				.orElseThrow(() -> new EntidadeNaoEncontradaException(
+						String.format("Nao encontrado o entregador com o ID: %s", id)));
+
+		return entregadorMapper.toDTO(entregador);
 	}
 
 	@Override
@@ -229,8 +238,7 @@ public class EntregadorServiceImpl implements EntregadorService {
 
 	@Override
 	public void delete(UUID id) {
-		// TODO Auto-generated method stub
-
+		readById(id);
+		entregadorRepository.deleteById(id);
 	}
-
 }

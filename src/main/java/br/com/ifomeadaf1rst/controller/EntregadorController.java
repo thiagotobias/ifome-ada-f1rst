@@ -66,5 +66,4 @@ public class EntregadorController {
     	service.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 }
