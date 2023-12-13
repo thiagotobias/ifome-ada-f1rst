@@ -21,6 +21,6 @@ public class Banco {
 	private UUID id;
 	private String nome;
 	private String cnpj;
-	private Long numero;
+	private String numero;
 
 }
