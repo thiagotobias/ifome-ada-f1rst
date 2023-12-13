@@ -22,7 +22,7 @@ public class Documento {
 	private UUID id;
 	private String ufCNH;
 	private Long numeroCNH;
-	private Character categoriaCNH;
+	private String categoriaCNH;
 	private LocalDate dataVencimentoCNH;
 	private LocalDate dataEmissaoCNH;
 

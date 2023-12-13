@@ -4,16 +4,18 @@ curl --request POST \
   --header 'User-Agent: Insomnia/2023.5.5' \
   --data '{
 	"nome":"Maria Joaquina",
-	"cpf":"07261625078",
-	"rg":"3530374",
+	"cpf":"44568600065",
+	"rg":"3520374",
 	"email":"emaildeteste@gmail.com",
+	"bancoNome":"Santander",
 	"banco":"0033",
+	"bancoCNPJ":"16407431000107",
 	"agencia":"00001",
 	"conta":"00000001",
 	"digitoConta":"0",
 	"tipoConta":"CORRENTE",
 	"tipoChave":"EMAIL",
-	"chave":"emaildeteste@gmail.com",
+	"chave":"thiagotobias@gmail.com",
 	"ufCNH":"SP",
 	"numeroCNH":"71662410467",
 	"categoriaCNH":"B",
@@ -27,7 +29,7 @@ curl --request POST \
 	"renavam":"11457286143",
 	"anoVeiculo":"2010",
 	"logradouro":"Rua nome da rua",
-	"numeroEndereco":"342",
+	"numeroEndereco":"288",
 	"complementoEndereco":"",
-	"cep":"08822310"
+	"cep":"04455310"
 }'

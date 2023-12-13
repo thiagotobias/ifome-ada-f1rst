@@ -1,7 +1,6 @@
 package br.com.ifomeadaf1rst.service.impl;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -12,7 +11,13 @@ import org.springframework.stereotype.Service;
 import br.com.ifomeadaf1rst.dto.EntregadorDTO;
 import br.com.ifomeadaf1rst.enums.TipoVeiculoEnum;
 import br.com.ifomeadaf1rst.exception.BusinessException;
+import br.com.ifomeadaf1rst.model.Banco;
+import br.com.ifomeadaf1rst.model.ChavePix;
+import br.com.ifomeadaf1rst.model.DadosBancarios;
+import br.com.ifomeadaf1rst.model.Documento;
+import br.com.ifomeadaf1rst.model.Endereco;
 import br.com.ifomeadaf1rst.model.Entregador;
+import br.com.ifomeadaf1rst.model.Veiculo;
 import br.com.ifomeadaf1rst.repository.EntregadorRepository;
 import br.com.ifomeadaf1rst.service.EntregadorService;
 
@@ -21,7 +26,7 @@ public class EntregadorServiceImpl implements EntregadorService {
 	
 	@Autowired
 	private EntregadorRepository repEntregador;
-
+	
 	@Override
 	public EntregadorDTO create(EntregadorDTO entregador) {
 
@@ -35,6 +40,31 @@ public class EntregadorServiceImpl implements EntregadorService {
 		return entregador;
 	}
 
+	private DadosBancarios montaDadosBancarios(EntregadorDTO entregador) {
+		DadosBancarios dadosBancariosRep = new DadosBancarios();
+		dadosBancariosRep.setDigitoConta(entregador.getDigitoConta());
+		dadosBancariosRep.setNumeroConta(entregador.getConta());
+		dadosBancariosRep.setChavePixId(montaChavePix(entregador));
+		dadosBancariosRep.setBancoId(montaBanco(entregador));
+		
+		return dadosBancariosRep;
+	}
+
+	private ChavePix montaChavePix(EntregadorDTO entregador) {
+		ChavePix chavePixRep = new ChavePix();
+		chavePixRep.setTipoChave(entregador.getTipoChave());
+		chavePixRep.setValor(entregador.getChave());
+		return chavePixRep;
+	}
+
+	private Banco montaBanco(EntregadorDTO entregador) {
+		Banco bancoRep = new Banco();
+		bancoRep.setCnpj(entregador.getBancoCNPJ());
+		bancoRep.setNome(entregador.getBancoNome());
+		bancoRep.setNumero(entregador.getBanco());
+		return bancoRep;
+	}
+
 	private Entregador montaEntregador(EntregadorDTO entregador) {
 		Entregador entregadorRep = new Entregador();
 		entregadorRep.setNome(entregador.getNome());
@@ -42,12 +72,42 @@ public class EntregadorServiceImpl implements EntregadorService {
 		entregadorRep.setEmail(entregador.getEmail());
 		entregadorRep.setRg(entregador.getRg());
 		entregadorRep.setTamanhoCamisa(entregador.getTamanhoCamisa());
-//		entregadorRep.setDadosBancariosId(); //
-//		entregadorRep.setDocumentoId(); //
-//		entregadorRep.setEnderecoId();//
-//		entregadorRep.setVeiculoId();//
+		entregadorRep.setDadosBancariosId(montaDadosBancarios(entregador));
+		entregadorRep.setDocumentoId(montaDocumento(entregador));
+		entregadorRep.setEnderecoId(montaEndereco(entregador));
+		entregadorRep.setVeiculoId(montaVeiculo(entregador));
 		
 		return entregadorRep;
+	}
+
+	private Veiculo montaVeiculo(EntregadorDTO entregador) {
+		Veiculo veiculoRep = new Veiculo();
+		veiculoRep.setAno(entregador.getAnoVeiculo());
+		veiculoRep.setAtivo(Boolean.TRUE);
+		veiculoRep.setCor(entregador.getCorVeiculo());
+		veiculoRep.setMarca(entregador.getMarcaVeiculo());
+		veiculoRep.setPlaca(entregador.getPlacaVeiculo());
+		veiculoRep.setRenavan(entregador.getRenavam());
+		veiculoRep.setTipo(entregador.getTipoVeiculoEnum());
+		return veiculoRep;
+	}
+
+	private Endereco montaEndereco(EntregadorDTO entregador) {
+		Endereco enderecoRep = new Endereco();
+		enderecoRep.setCep(entregador.getCep());
+		enderecoRep.setComplemento(entregador.getComplementoEndereco());
+		enderecoRep.setLogradouro(entregador.getLogradouro());
+		return enderecoRep;
+	}
+
+	private Documento montaDocumento(EntregadorDTO entregador) {
+		Documento documentoRep = new Documento();
+		documentoRep.setCategoriaCNH(entregador.getCategoriaCNH());
+		documentoRep.setDataEmissaoCNH(entregador.getDataEmisssaoCNH());
+		documentoRep.setDataVencimentoCNH(entregador.getDataVencimentoCNH());
+		documentoRep.setNumeroCNH(entregador.getNumeroCNH());
+		documentoRep.setUfCNH(entregador.getUfCNH());
+		return documentoRep;
 	}
 
 	public void validarContaBancaria(EntregadorDTO entregador) {
@@ -136,8 +196,7 @@ public class EntregadorServiceImpl implements EntregadorService {
 
 	private void validarCNH(EntregadorDTO entregador) {
 		LocalDate dataAtual = LocalDate.now();
-		LocalDate dataVencimento = entregador.getDataVencimentoCNH().toInstant().atZone(ZoneId.systemDefault())
-				.toLocalDate();
+		LocalDate dataVencimento = entregador.getDataVencimentoCNH();
 
 		if (dataVencimento.isBefore(dataAtual)) {
 			throw new BusinessException("A CNH está vencida. Não é permitido continuar com uma CNH vencida.");

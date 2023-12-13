@@ -1,6 +1,6 @@
 package br.com.ifomeadaf1rst.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import org.hibernate.validator.constraints.br.CPF;
@@ -38,6 +38,12 @@ public class EntregadorDTO {
 	@NotBlank(message = "Banco é obrigatório")
 	private String banco;
 	
+	@NotBlank(message = "Banco CNPJ é obrigatório")
+	private String bancoCNPJ;
+	
+	@NotBlank(message = "Banco Nome é obrigatório")
+	private String bancoNome;
+	
 	@NotBlank(message = "Agencia é obrigatório")
 	private String agencia;
 	
@@ -68,10 +74,10 @@ public class EntregadorDTO {
 	private String categoriaCNH;
 	
 	@NotNull(message = "Data de Vencimento da Habilitação é obrigatório")
-	private Date dataVencimentoCNH;
+	private LocalDate dataVencimentoCNH;
 	
 	@NotNull(message = "Data de Emissão da Habilitação é obrigatório")
-	private Date dataEmisssaoCNH;
+	private LocalDate dataEmisssaoCNH;
 	private String tamanhoCamisa;
 	
 	@NotNull(message = "Tipo de Veículo é obrigatório")
