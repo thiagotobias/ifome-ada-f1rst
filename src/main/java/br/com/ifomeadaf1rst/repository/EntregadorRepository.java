@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.ifomeadaf1rst.model.Entregador;
 
-public interface EntregadorRepository extends JpaRepository<Entregador, Long> {
+import java.util.UUID;
+
+public interface EntregadorRepository extends JpaRepository<Entregador, UUID> {
 
 }

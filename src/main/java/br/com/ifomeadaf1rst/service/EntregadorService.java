@@ -7,14 +7,14 @@ import br.com.ifomeadaf1rst.dto.EntregadorDTO;
 
 public interface EntregadorService {
 
-	public EntregadorDTO create(EntregadorDTO entregador);
+	EntregadorDTO create(EntregadorDTO entregador);
 
-	public EntregadorDTO readById(UUID id);
+	EntregadorDTO readById(UUID id);
 
-	public List<EntregadorDTO> readAll();
+	List<EntregadorDTO> readAll();
 
-	public EntregadorDTO update(EntregadorDTO entregador, UUID id);
+	EntregadorDTO update(EntregadorDTO entregador, UUID id);
 
-	public void delete(UUID id);
+	void delete(UUID id);
 
 }
