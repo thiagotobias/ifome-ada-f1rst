@@ -5,14 +5,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import br.com.ifomeadaf1rst.dto.EntregadorDTO;
-import br.com.ifomeadaf1rst.dto.mapper.EntregadorMapper;
 import br.com.ifomeadaf1rst.enums.TipoVeiculoEnum;
 import br.com.ifomeadaf1rst.exception.BusinessException;
-import br.com.ifomeadaf1rst.exception.EntidadeNaoEncontradaException;
 import br.com.ifomeadaf1rst.model.Banco;
 import br.com.ifomeadaf1rst.model.ChavePix;
 import br.com.ifomeadaf1rst.model.DadosBancarios;
@@ -20,17 +15,27 @@ import br.com.ifomeadaf1rst.model.Documento;
 import br.com.ifomeadaf1rst.model.Endereco;
 import br.com.ifomeadaf1rst.model.Entregador;
 import br.com.ifomeadaf1rst.model.Veiculo;
+import br.com.ifomeadaf1rst.dto.mapper.EntregadorMapper;
+import br.com.ifomeadaf1rst.exception.EntidadeNaoEncontradaException;
 import br.com.ifomeadaf1rst.repository.EntregadorRepository;
 import br.com.ifomeadaf1rst.service.EntregadorService;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EntregadorServiceImpl implements EntregadorService {
 
-	@Autowired
+	
 	private EntregadorRepository entregadorRepository;
-	@Autowired
 	private EntregadorMapper entregadorMapper;
 	
+	public EntregadorServiceImpl() {
+	}
+
+	public EntregadorServiceImpl(EntregadorRepository entregadorRepository, EntregadorMapper entregadorMapper) {
+		this.entregadorRepository = entregadorRepository;
+		this.entregadorMapper = entregadorMapper;
+	}
+
 	@Override
 	public EntregadorDTO create(EntregadorDTO entregador) {
 
